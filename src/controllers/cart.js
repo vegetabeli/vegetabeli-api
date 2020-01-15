@@ -1,5 +1,7 @@
 const model = require ('../models/cart')
 const helpers = require ('../helpers/index')
+const uuid = require('uuid/v4')
+
 
 module.exports = {
     getAllCart: (req, res) => {
@@ -35,8 +37,11 @@ module.exports = {
           });
       },
     addCart: (req, res) => {
-        const { name } = req.body
-        const data = {name}
+        const id_cart = uuid().split('-')[0]
+        const { id_user, id_market } = req.body
+        const data = {
+            
+        }
 
         model.addCart(data)
             .then(result => {
