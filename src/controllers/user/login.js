@@ -9,13 +9,14 @@ module.exports = {
     model
       .login(email, role)
       .then(result => {
+        console.log(result[0].id_user)
         const id_user = result[0].id_user
         const passwordHash = result[0].password
 
         if(bcryptjs.compareSync(password, passwordHash)) {
           const token = jwt.sign(
             {id_user},
-            process.env.ACCESS_TOKEN_SECRET,
+            'e55b272e9526bc6b71d5de434d7b01f7340d95397bd6bac4b41120b03ae8740450ade949a27513a71b62a4e1fd464ed7ee5e11e25d19de8d0af236671545c24d',
             {expiresIn: "24h"}
           )
 
@@ -29,18 +30,12 @@ module.exports = {
             }
           })
         } else {
-          res.json({
-            status:400,
-            message: "Password incorrect!"
-          })
+          res.send("Password incorrect!")
         }
       })
       .catch(err => {
         console.log(err)
-        res.status(400).json({
-          status:400,
-          message: "Email or Password incorrect!"
-        })
+        res.send("Email or Password incorrect!")
       })
   }
 }
