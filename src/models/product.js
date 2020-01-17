@@ -56,7 +56,7 @@ module.exports = {
           FROM product
           LEFT JOIN category ON category.name = product.category
           LEFT JOIN market ON market.id_market = product.id_market
-          WHERE product.id_product = ${id}`
+          WHERE product.id_product = '${id}'`
           , (err, response) =>{
               if (!err) {
                   resolve (response)
