@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jan 2020 pada 02.40
+-- Waktu pembuatan: 17 Jan 2020 pada 05.13
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.1.33
 
@@ -115,13 +115,14 @@ INSERT INTO `market` (`id_market`, `id_user`, `name`, `photo`, `location`, `date
 --
 
 CREATE TABLE `product` (
-  `id_product` int(11) NOT NULL,
+  `id_product` varchar(255) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `category` varchar(100) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
+  `sold` int(11) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   `date_updated` int(11) DEFAULT NULL,
   `id_market` varchar(255) DEFAULT NULL
@@ -131,10 +132,11 @@ CREATE TABLE `product` (
 -- Dumping data untuk tabel `product`
 --
 
-INSERT INTO `product` (`id_product`, `name`, `description`, `price`, `image`, `category`, `stock`, `date_created`, `date_updated`, `id_market`) VALUES
-(1, 'Kerang Dara', 'Asli Kerajaan Majapahit', 12000, 'image-1579077574786.jpg', 'seafood', 842, '2020-01-15 15:39:34', 2020, 'ewrew21'),
-(72, 'Maggi Saos Tiram', 'Rasa Ayam Bawang', 3000, 'image-1579075030732.jpg', 'bumbu', 1002, '2020-01-15 14:47:56', 2020, '8767das'),
-(952, 'Tomat', 'Tomat segar berasal dari bukit Marwa', 12000, 'image-1579074708389.jpg', 'sayuran', 123, '2020-01-15 14:51:48', 2020, '8767das');
+INSERT INTO `product` (`id_product`, `name`, `description`, `price`, `image`, `category`, `stock`, `sold`, `date_created`, `date_updated`, `id_market`) VALUES
+('0', 'Kerang Merah', 'Kerang dari Tulungagung', 1000, 'image-1579233802997.jpg', 'seafood', 1213, NULL, '2020-01-17 11:03:23', 2020, '02acccfb'),
+('1', 'Kerang Dara', 'Asli Kerajaan Majapahit', 12000, 'image-1579077574786.jpg', 'seafood', 842, 0, '2020-01-15 15:39:34', 2020, 'ewrew21'),
+('72', 'Maggi Saos Tiram', 'Rasa Ayam Bawang', 3000, 'image-1579075030732.jpg', 'bumbu', 1002, 0, '2020-01-15 14:47:56', 2020, '8767das'),
+('952', 'Tomat', 'Tomat segar berasal dari bukit Marwa', 12000, 'image-1579074708389.jpg', 'sayuran', 123, 0, '2020-01-15 14:51:48', 2020, '8767das');
 
 -- --------------------------------------------------------
 
