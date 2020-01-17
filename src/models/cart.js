@@ -3,7 +3,7 @@ const db = require('../configs/db')
 module.exports = {
     getAllCart: () => {
         return new Promise ((resolve, reject) =>{
-            db.query(`SELECT cart.id_cart, GROUP_CONCAT(DISTINCT product.name) AS product_name, cart.id_user, user.email AS buyer_email, cart.id_market, market.name AS market_name, cart.total, cart.date_transaction, cart.date_updated
+            db.query(`SELECT cart.id_cart, GROUP_CONCAT(DISTINCT product.name) AS product_name, GROUP_CONCAT(product_taken.quantity) AS quantity, cart.id_user, user.email AS buyer_email, cart.id_market, market.name AS market_name, cart.total, cart.date_transaction, cart.date_updated
             FROM product_taken
             RIGHT JOIN cart ON cart.id_cart = product_taken.id_cart
             LEFT JOIN product ON product.id_product = product_taken.id_product
@@ -20,7 +20,7 @@ module.exports = {
     },
     getCartById: (id) => {
         return new Promise ((resolve, reject) =>{
-            db.query(`SELECT cart.id_cart, GROUP_CONCAT(DISTINCT product.name) AS product_name, cart.id_user, user.email AS buyer_email, cart.id_market, market.name AS market_name, cart.total, cart.date_transaction, cart.date_updated
+            db.query(`SELECT cart.id_cart, GROUP_CONCAT(DISTINCT product.name) AS product_name, GROUP_CONCAT(product_taken.quantity) AS quantity, cart.id_user, user.email AS buyer_email, cart.id_market, market.name AS market_name, cart.total, cart.date_transaction, cart.date_updated
             FROM product_taken
             RIGHT JOIN cart ON cart.id_cart = product_taken.id_cart
             LEFT JOIN product ON product.id_product = product_taken.id_product
