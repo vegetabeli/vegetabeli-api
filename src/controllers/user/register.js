@@ -11,7 +11,7 @@ module.exports = {
     const id = uuidv4().split('-')[0]
 
     const regexEmail = /.+@.+\..+/
-    const regexPassword = /^[^A-Za-z0-9_]{1}[A-Z]{2}[0-9]{3}[a-z]{2}$/
+    const regexPassword = /^[^A-Za-z0-9_]{1}[A-Z]{2}[0-9]{3}[a-z]{2}$/ //@ZZ123zz
   
     if(regexEmail.test(email) && email.length > 3) {
       if(regexPassword.test(password)) {

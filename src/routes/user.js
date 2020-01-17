@@ -15,8 +15,8 @@ Router.post('/', auth.authentication, crudController.postUser)
 Router.patch('/:id_user', auth.authentication, crudController.patchUser)
 Router.delete('/:id_user', auth.authentication, crudController.deleteUser)
 
-Router.get('/register', registerController.register)
-Router.get('/login', loginController.login)
+Router.post('/register', registerController.register)
+Router.post('/login', loginController.login)
 Router.post('/forgot', forgotController.forgotPasswordEmail)
 Router.post('/verifyforgot', forgotController.checkIdForgot)
 
