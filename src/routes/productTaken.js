@@ -1,12 +1,14 @@
 const express = require ('express')
 const controller = require ('../controllers/productTaken')
 const Router = express.Router()
+const auth = require('../helpers/auth')
+
 
 Router
-    .get('/', controller.getAllProductTaken)
-    .get('/:id_product_taken', controller.getProductTakenById)
-    .post('/', controller.addProductTaken)
-    .patch('/:id_product_taken', controller.editProductTaken)
-    .delete('/:id_product_taken', controller.deleteProductTaken)
+    .get('/', auth.authentication, controller.getAllProductTaken)
+    .get('/:id_product_taken', auth.authentication, controller.getProductTakenById)
+    .post('/', auth.authentication, controller.addProductTaken)
+    .patch('/:id_product_taken', auth.authentication, controller.editProductTaken)
+    .delete('/:id_product_taken', auth.authentication, controller.deleteProductTaken)
 
 module.exports = Router

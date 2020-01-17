@@ -2,12 +2,14 @@ const express = require ('express')
 const controller = require ('../controllers/cart')
 const Router = express.Router()
 
+const auth = require('../helpers/auth')
+
 Router
-    .get('/', controller.getAllCart)
-    .get('/:id_cart', controller.getCartById)
-    .get('/:id_user', controller.getCartByBuyer)
-    .post('/', controller.addCart)
-    .patch('/:id_cart', controller.editCart)
-    .delete('/:id_cart', controller.deleteCart)
+    .get('/', auth.authentication, controller.getAllCart)
+    .get('/:id_cart', auth.authentication, controller.getCartById)
+    .get('/:id_user', auth.authentication, controller.getCartByBuyer)
+    .post('/', auth.authentication, controller.addCart)
+    .patch('/:id_cart', auth.authentication, controller.editCart)
+    .delete('/:id_cart', auth.authentication, controller.deleteCart)
 
 module.exports = Router

@@ -2,10 +2,12 @@ const express = require ('express')
 const controller = require ('../controllers/category')
 const Router = express.Router()
 
+const auth = require('../helpers/auth')
+
 Router
-    .get('/', controller.getCategory)
-    .post('/', controller.addCategory)
-    .patch('/:id_category', controller.editCategory)
-    .delete('/:id_category', controller.deleteCategory)
+    .get('/', auth.authentication, controller.getCategory)
+    .post('/', auth.authentication, controller.addCategory)
+    .patch('/:id_category', auth.authentication, controller.editCategory)
+    .delete('/:id_category', auth.authentication, controller.deleteCategory)
 
 module.exports = Router
