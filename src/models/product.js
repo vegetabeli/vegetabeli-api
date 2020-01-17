@@ -33,7 +33,7 @@ module.exports = {
         }
 
         return new Promise ((resolve, reject) =>{
-            db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.bought_qty, product.date_created, product.date_updated, market.name AS market
+            db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, market.name AS market
             FROM product
             LEFT JOIN category ON category.name = product.category
             LEFT JOIN market ON market.id_market = product.id_market
@@ -52,7 +52,7 @@ module.exports = {
     },
     getProductById: (id) => {
       return new Promise ((resolve, reject) =>{
-          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.bought_qty, product.date_created, product.date_updated, market.name AS market
+          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, market.name AS market
           FROM product
           LEFT JOIN category ON category.name = product.category
           LEFT JOIN market ON market.id_market = product.id_market
