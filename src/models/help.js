@@ -32,7 +32,7 @@ module.exports = {
     },
     addHelp: (data) => {
         return new Promise ((resolve, reject) =>{
-            db.query('INSERT INTO category SET ?', data, (err, response) =>{
+            db.query('INSERT INTO help SET ?', data, (err, response) =>{
                 if (!err) {
                     resolve (response)
                 }else{
