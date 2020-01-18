@@ -26,7 +26,8 @@ module.exports = {
             LEFT JOIN product ON product.id_product = product_taken.id_product
             JOIN user ON user.id_user = cart.id_user
             JOIN market ON market.id_market = cart.id_market
-            GROUP BY cart.id_cart WHERE id_cart='${id}'`, (err, response) =>{
+            WHERE cart.id_cart='${id}'
+            GROUP BY cart.id_cart`, (err, response) =>{
                 if (!err) {
                     resolve (response)
                 }else{
