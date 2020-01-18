@@ -1,9 +1,16 @@
 const db = require('../configs/db')
 
 module.exports = {
-    getHelp: () => {
+    getHelp: (search) => {
+        
+        let query = ''
+
+        if (search != undefined){
+            query = `WHERE title LIKE '%${search}%'`
+          }
+
         return new Promise ((resolve, reject) =>{
-            db.query('SELECT * FROM help', (err, response) =>{
+            db.query(`SELECT * FROM help ${query}`, (err, response) =>{
                 if (!err) {
                     resolve (response)
                 }else{

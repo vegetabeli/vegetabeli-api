@@ -2,9 +2,10 @@ const model = require ('../models/help')
 const helpers = require ('../helpers/index')
 
 module.exports = {
-    getHelp: (_, res) => {
+    getHelp: (req, res) => {
+        const { search } = req.query
         model
-          .getHelp ()
+          .getHelp (search)
           .then (response => {
             helpers.success (res, response)
           })
