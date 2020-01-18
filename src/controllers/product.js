@@ -49,12 +49,25 @@ module.exports = {
             console.log (err);
           });
       },
-      getProductById: (req , res) => {
+    getProductById: (req , res) => {
 
         const id = req.params.id_product
 
         model
           .getProductById (id)
+          .then (response => {
+            helpers.success (res, response)
+          })
+          .catch (err => {
+            console.log (err);
+          });
+      },
+    getProductByMarket: (req , res) => {
+
+        const id = req.params.id_market
+
+        model
+          .getProductByMarket (id)
           .then (response => {
             helpers.success (res, response)
           })

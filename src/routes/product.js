@@ -6,7 +6,8 @@ const auth = require('../helpers/auth')
 
 Router
     .get('/', auth.authentication, controller.getProduct)
-    .get('/:id_product', auth.authentication, controller.getProductById)
+    .get('/product/:id_product', auth.authentication, controller.getProductById)
+    .get('/market/:id_product', auth.authentication, controller.getProductByMarket)
     .post('/', auth.authentication, controller.addProduct)
     .patch('/:id_product', auth.authentication, controller.editProduct)
     .delete('/:id_product', auth.authentication, controller.deleteProduct)

@@ -66,6 +66,22 @@ module.exports = {
           })
       })
     },
+    getProductByMarket: (id) => {
+      return new Promise ((resolve, reject) =>{
+          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, product.id_market, market.name AS market
+          FROM product
+          LEFT JOIN category ON category.name = product.category
+          LEFT JOIN market ON market.id_market = product.id_market
+          WHERE product.id_market = '${id}'`
+          , (err, response) =>{
+              if (!err) {
+                  resolve (response)
+              }else{
+                  reject (err)
+              }
+          })
+      })
+    },
     addProduct: (data) => {
         return new Promise ((resolve, reject) =>{
             db.query('INSERT INTO product SET ?', data, (err, response) =>{

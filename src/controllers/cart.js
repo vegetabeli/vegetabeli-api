@@ -58,8 +58,8 @@ module.exports = {
     },
     editCart: (req, res) => {
         const id_cart = req.params.id_cart
-        const { id_user, id_market } = req.body
-        const data = {id_user, id_market, date_updated: new Date()}
+        const { id_user, id_market, total } = req.body
+        const data = {id_user, id_market, total, date_transaction: new Date(), date_updated: new Date()}
 
         model.editCart(data, id_cart)
             .then(result => {
