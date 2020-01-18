@@ -60,6 +60,21 @@ module.exports = {
       )
     })
   },
+  patchForgotUser: (password, id_user) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        `UPDATE user SET password= ? WHERE id_user = ?`,
+        [password, id_user],
+        (err, response) => {
+          if (!err) {
+            resolve(response)
+          } else {
+            reject(err)
+          }
+        }
+      )
+    })
+  },
   deleteUser: (id_user) => {
     return new Promise ((resolve, reject) => {
       db.query(

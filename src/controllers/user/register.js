@@ -41,24 +41,18 @@ module.exports = {
                 .catch(err => {
                   //Reject
                   console.log(err)
-                  res.status(400).json({
-                    status:400,
-                    message: "id not matches or already used"
-                  })
+                  res.send("Error Data")
+
                 })
             } else {
-              res.status(400).json({
-                status:400,
-                message: "email already exists"
-              })
+              res.send("email already exists")
+              
             }
           })
           .catch(err => {
             console.log(err)
-            res.status(400).json({
-              status: 400,
-              message: "error when get email from database"
-            })
+            res.send("error when get email from database")
+           
           })
       } else {
         res.send("Your password is not valid ");

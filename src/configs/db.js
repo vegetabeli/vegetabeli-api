@@ -1,13 +1,13 @@
-const mysql = require ('mysql')
+const mysql = require("mysql");
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASWORD,
-    database: process.env.DB_NAME,
-})
+  host: process.env.DB_HOST,
+  user: 'root',
+  password: process.env.DB_PASSWORD,
+  database: 'db_vegetabeli'
+});
 
-db.connect (err => {
-    if (err) throw err
-})
+db.connect(err => {
+  if (err) throw err;
+});
 
 module.exports = db;

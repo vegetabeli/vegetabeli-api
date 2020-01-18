@@ -1,5 +1,6 @@
 const model = require('../../../models/user/crud/crudUser')
 const form = require('../../../helpers/index')
+const bcrypt = require('bcryptjs')
 const multer = require('multer')
 const path = require('path')
 const helpers = require('../../../helpers/index')
@@ -94,6 +95,25 @@ module.exports = {
           })
       }
     })
+  },
+  patchForgotUser: (req, res) => {
+    const { id_user } = req.params
+    const { password } = req.body
+    
+    const regexPassword = /^[^A-Za-z0-9_]{1}[A-Z]{2}[0-9]{3}[a-z]{2}$/
+    if(regexPassword.test(password)) {
+      let newPassword = bcrypt.hashSync(password)
+      model
+        .patchForgotUser(newPassword, id_user)
+        .then(result => {
+          form.success(res, result)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      res.send('Your password pattern is invalid')
+    }
   },
   deleteUser: (req, res) => {
     const {id_user} = req.params

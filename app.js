@@ -5,12 +5,13 @@ const cors = require ('cors')
 const helmet = require ('helmet')
 const bodyParser = require ('body-parser')
 
+
 const router = require('./src/routes/index')
 
 const index = express ();
 
-index.listen (process.env.PORT, () => {
-    console.log ('Server is running on port ' + process.env.PORT)
+index.listen (5000, () => {
+    console.log ('Server is running on port 5000')
 })
 
 index.use (logger('dev'))

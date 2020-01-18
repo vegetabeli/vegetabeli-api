@@ -17,10 +17,12 @@ module.exports = {
       })
       .catch(err => {
         console.log(err)
+        res.send('Error on process')
       })
     })
     .catch(err => {
       console.log(err)
+      res.send('Email not found')
     })
 
     const main = async () => {
@@ -57,10 +59,16 @@ module.exports = {
     model
       .readVerifyForgot(idForgot)
       .then(result => {
-        form.success(res, result)
+        console.log(result.length)
+        if(result.length == 0) {
+          return res.send('Wrong code')
+        } else {
+          return form.success(res, result)
+        }
       })
       .catch(err => {
         console.log(err)
+        res.send('Wrong code')
       })
   }
 }
