@@ -38,11 +38,19 @@ module.exports = {
       },
     addCart: (req, res) => {
         // const id_cart = uuid().split('-')[0]
-        const { id_cart, id_user, id_market } = req.body
+        const { id_cart, id_user, id_market, full_name, order_address, email, phone, order_note, session_id, payment_method, total } = req.body
         const data = {
             id_cart,
             id_user,
             id_market,
+            full_name,
+            order_address,
+            email,
+            phone,
+            order_note,
+            session_id,
+            payment_method,
+            total,
             date_transaction: new Date(),
             date_updated: new Date()
         }
@@ -58,8 +66,8 @@ module.exports = {
     },
     editCart: (req, res) => {
         const id_cart = req.params.id_cart
-        const { id_user, id_market, total } = req.body
-        const data = {id_user, id_market, total, date_transaction: new Date(), date_updated: new Date()}
+        const { id_user, id_market, full_name, order_address, email, phone, order_note, session_id, payment_method, total } = req.body
+        const data = {id_user, id_market, full_name, order_address, email, phone, order_note, session_id, payment_method, total, date_updated: new Date()}
 
         model.editCart(data, id_cart)
             .then(result => {
