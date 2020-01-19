@@ -73,6 +73,28 @@ module.exports = {
             console.log (err);
           });
       },
+    getProductByUser: (req , res, next) => {
+
+        const id = req.params.id_user
+        
+        model
+          .getProductByUser (id)
+          .then (response => {
+            redisClient.get(req.url, (err) => {
+                if(err) throw err
+                if(response !== null){
+                    redisClient.setex(req.url, 3600, JSON.stringify(response))
+                    helpers.success (res, response)
+                }else{
+                    next()
+                }
+            })
+          })
+          .catch (err => {
+            console.log (err);
+          });
+      },
+
     getProductByMarket: (req , res) => {
 
         const id = req.params.id_market
@@ -117,7 +139,7 @@ module.exports = {
                 })
             }else{
             const id_product = uuid().split('-')[0]
-            const { name, description, price, category, stock, id_market } = req.body
+            const { name, description, price, category, stock, id_market, id_user } = req.body
             const image = req.file ? req.file.filename : req.file
             const data = {
                 id_product,
@@ -129,7 +151,8 @@ module.exports = {
                 stock,
                 date_created: new Date(),
                 date_updated: new Date(),
-                id_market
+                id_market,
+                id_user
             }
             console.log(req, "ini req")
             model.addProduct(data)
@@ -151,7 +174,7 @@ module.exports = {
                 })
             }else{
                 const id_product = req.params.id_product
-                const { name, description, price, category, stock, id_market } = req.body
+                const { name, description, price, category, stock, id_market, id_user } = req.body
                 const image = req.file ? req.file.filename : req.file
                 const data = {
                     id_product,
@@ -162,7 +185,8 @@ module.exports = {
                     category,
                     stock,
                     date_updated: new Date(),
-                    id_market
+                    id_market,
+                    id_user
                 }
         
                 model.editProduct(data, id_product)

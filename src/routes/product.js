@@ -9,6 +9,7 @@ const cache = require('../helpers/cache')
 Router
     .get('/', controller.getProduct)
     .get('/product/:id_product', controller.getProductById)
+    .get('/user/:id_user', controller.getProductByUser)
     .get('/market/:id_market', controller.getProductByMarket)
     .post('/', controller.addProduct)
     .patch('/:id_product', controller.editProduct)
