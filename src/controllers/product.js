@@ -59,10 +59,10 @@ module.exports = {
         model
           .getProductById (id)
           .then (response => {
-            redisClient.get(id, (err) => {
+            redisClient.get(req.url, (err) => {
                 if(err) throw err
                 if(response !== null){
-                    redisClient.setex(id, 3600, JSON.stringify(response))
+                    redisClient.setex(req.url, 3600, JSON.stringify(response))
                     helpers.success (res, response)
                 }else{
                     next()
@@ -89,10 +89,10 @@ module.exports = {
         model
           .getProductByMarket (id, data)
           .then (response => {
-            redisClient.get(id, (err) => {
+            redisClient.get(req.url, (err) => {
                 if(err) throw err
                 if(response !== null){
-                    redisClient.setex(id, 3600, JSON.stringify(response))
+                    redisClient.setex(req.url, 3600, JSON.stringify(response))
                     helpers.success (res, response)
                 }else{
                     next()
