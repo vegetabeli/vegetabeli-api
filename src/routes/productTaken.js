@@ -5,10 +5,10 @@ const auth = require('../helpers/auth')
 
 
 Router
-    .get('/', auth.authentication, controller.getAllProductTaken)
-    .get('/:id_product_taken', auth.authentication, controller.getProductTakenById)
-    .post('/', auth.authentication, controller.addProductTaken)
-    .patch('/:id_product_taken', auth.authentication, controller.editProductTaken)
-    .delete('/:id_product_taken', auth.authentication, controller.deleteProductTaken)
+    .get('/', controller.getAllProductTaken)
+    .get('/:id_product_taken', controller.getProductTakenById)
+    .post('/', controller.addProductTaken)
+    .patch('/:id_product_taken', controller.editProductTaken)
+    .delete('/:id_product_taken', controller.deleteProductTaken)
 
 module.exports = Router

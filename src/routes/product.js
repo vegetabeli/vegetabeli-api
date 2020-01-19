@@ -4,12 +4,14 @@ const Router = express.Router()
 
 const auth = require('../helpers/auth')
 
+const cache = require('../helpers/cache') 
+
 Router
-    .get('/', auth.authentication, controller.getProduct)
-    .get('/product/:id_product', auth.authentication, controller.getProductById)
-    .get('/market/:id_market', auth.authentication, controller.getProductByMarket)
-    .post('/', auth.authentication, controller.addProduct)
-    .patch('/:id_product', auth.authentication, controller.editProduct)
-    .delete('/:id_product', auth.authentication, controller.deleteProduct)
+    .get('/', controller.getProduct)
+    .get('/product/:id_product', controller.getProductById)
+    .get('/market/:id_market', controller.getProductByMarket)
+    .post('/', controller.addProduct)
+    .patch('/:id_product', controller.editProduct)
+    .delete('/:id_product', controller.deleteProduct)
 
 module.exports = Router
