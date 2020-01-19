@@ -37,8 +37,8 @@ module.exports = {
           });
       },
     addCart: (req, res) => {
-        const id_cart = uuid().split('-')[0]
-        const { id_user, id_market } = req.body
+        // const id_cart = uuid().split('-')[0]
+        const { id_cart, id_user, id_market } = req.body
         const data = {
             id_cart,
             id_user,
