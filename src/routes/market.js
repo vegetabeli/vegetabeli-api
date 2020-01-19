@@ -5,10 +5,10 @@ const Router = express.Router()
 const auth = require('../helpers/auth')
 
 Router
-    .get('/', auth.authentication, controller.getAllMarket)
-    .get('/:id_market', auth.authentication, controller.getMarketById)
-    .post('/', auth.authentication, controller.addMarket)
-    .patch('/:id_market', auth.authentication, controller.editMarket)
-    .delete('/:id_market', auth.authentication, controller.deleteMarket)
+    .get('/', controller.getAllMarket)
+    .get('/:id_market', controller.getMarketById)
+    .post('/', controller.addMarket)
+    .patch('/:id_market', controller.editMarket)
+    .delete('/:id_market', controller.deleteMarket)
 
 module.exports = Router

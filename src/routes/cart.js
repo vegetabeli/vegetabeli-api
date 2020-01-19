@@ -5,11 +5,11 @@ const Router = express.Router()
 const auth = require('../helpers/auth')
 
 Router
-    .get('/', auth.authentication, controller.getAllCart)
-    .get('/cart/:id_cart', auth.authentication, controller.getCartById)
-    .get('/user/:id_user', auth.authentication, controller.getCartByBuyer)
-    .post('/', auth.authentication, controller.addCart)
-    .patch('/:id_cart', auth.authentication, controller.editCart)
-    .delete('/:id_cart', auth.authentication, controller.deleteCart)
+    .get('/', controller.getAllCart)
+    .get('/cart/:id_cart', controller.getCartById)
+    .get('/user/:id_user', controller.getCartByBuyer)
+    .post('/', controller.addCart)
+    .patch('/:id_cart', controller.editCart)
+    .delete('/:id_cart', controller.deleteCart)
 
 module.exports = Router

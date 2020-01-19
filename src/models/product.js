@@ -33,7 +33,7 @@ module.exports = {
         }
 
         return new Promise ((resolve, reject) =>{
-            db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, market.name AS market
+            db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, market.id_market AS id_market, market.name AS market
             FROM product
             LEFT JOIN category ON category.name = product.category
             LEFT JOIN market ON market.id_market = product.id_market
@@ -52,7 +52,7 @@ module.exports = {
     },
     getProductById: (id) => {
       return new Promise ((resolve, reject) =>{
-          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, market.name AS market
+          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, market.id_market AS id_market, market.name AS market
           FROM product
           LEFT JOIN category ON category.name = product.category
           LEFT JOIN market ON market.id_market = product.id_market
@@ -66,13 +66,47 @@ module.exports = {
           })
       })
     },
-    getProductByMarket: (id) => {
+    getProductByMarket: (id_market, data) => {
+
+      let pagination = ``,
+        search = '',
+        sort_by = '',
+        order = '',
+        category =''
+
+        if (data.name != undefined){
+          search = `WHERE product.name LIKE '%${data.name}%'`
+        }
+
+        if (data.category != undefined){
+          category = `WHERE category = '${data.category}'`
+        }
+
+        if(data.sort_by != undefined){
+          sort_by = `ORDER BY ${data.sort_by}`
+        }else{
+          sort_by = `ORDER BY product.date_created`
+        }
+
+        if(data.order != undefined){
+          order = `${data.order}`
+        }
+
+        if(data.limit != undefined && data.page != undefined){
+          data.page = data.limit*(data.page-1)
+          pagination = `LIMIT ${data.limit} OFFSET ${data.page}`
+        }
+
       return new Promise ((resolve, reject) =>{
-          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, product.id_market, market.name AS market
+          db.query(`SELECT product.id_product, product.name, product.description, product.price, product.image, category.name AS category, product.stock, product.sold, product.date_created, product.date_updated, product.id_market, market.id_market AS id_market, market.name AS market
           FROM product
           LEFT JOIN category ON category.name = product.category
           LEFT JOIN market ON market.id_market = product.id_market
-          WHERE product.id_market = '${id}'`
+          WHERE product.id_market = '${id_market}'
+          ${category}
+          ${search}
+          ${sort_by} ${order}
+          ${pagination}`
           , (err, response) =>{
               if (!err) {
                   resolve (response)

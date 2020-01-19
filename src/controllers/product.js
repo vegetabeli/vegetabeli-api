@@ -3,6 +3,8 @@ const helpers = require ('../helpers/index')
 const multer = require('multer')
 const path = require('path')
 const uuid = require('uuid/v4')
+const redisClient = require('../utils/redis');
+
 
 const storage = multer.diskStorage({
     destination: './public/uploads/product',
@@ -21,7 +23,7 @@ const upload = multer({
 
 module.exports = {
     getProduct: (req , res) => {
-
+        
         let { sort_by, order, name, limit, page, category} = req.query
         let data = {
         sort_by,
@@ -36,27 +38,36 @@ module.exports = {
           .getProduct (data)
           .then (response => {
             // helpers.success (res, response)
-            res.json({
-                status: 200,
-                  msg: 'Success',
-                  "page" : req.query.page,
-                //   "pages": Math.ceil(result.length/req.query.limit),
-                //   "total": result.length,
-                  response 
-            })
+                res.json({
+                    status: 200,
+                      msg: 'Success',
+                      "page" : req.query.page,
+                    //   "pages": Math.ceil(result.length/req.query.limit),
+                    //   "total": result.length,
+                      response 
+                })
           })
           .catch (err => {
             console.log (err);
           });
       },
-    getProductById: (req , res) => {
+    getProductById: (req , res, next) => {
 
         const id = req.params.id_product
-
+        
+        
         model
           .getProductById (id)
           .then (response => {
-            helpers.success (res, response)
+            redisClient.get(id, (err) => {
+                if(err) throw err
+                if(response !== null){
+                    redisClient.setex(id, 3600, JSON.stringify(response))
+                    helpers.success (res, response)
+                }else{
+                    next()
+                }
+            })
           })
           .catch (err => {
             console.log (err);
@@ -65,11 +76,28 @@ module.exports = {
     getProductByMarket: (req , res) => {
 
         const id = req.params.id_market
+        let { sort_by, order, name, limit, page, category} = req.query
+        let data = {
+            sort_by,
+            order,
+            name,
+            limit,
+            page,
+            category
+            }
 
         model
-          .getProductByMarket (id)
+          .getProductByMarket (id, data)
           .then (response => {
-            helpers.success (res, response)
+            redisClient.get(id, (err) => {
+                if(err) throw err
+                if(response !== null){
+                    redisClient.setex(id, 3600, JSON.stringify(response))
+                    helpers.success (res, response)
+                }else{
+                    next()
+                }
+            })
           })
           .catch (err => {
             console.log (err);
